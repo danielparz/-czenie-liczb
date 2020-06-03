@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Łączenie_liczb
 {
@@ -18,6 +19,7 @@ namespace Łączenie_liczb
         {
             if(num < lastNum) return false;
             if(num <= UInt32.MaxValue) return true;
+            return true;
         }
 
 
@@ -27,27 +29,34 @@ namespace Łączenie_liczb
             uint lastNum;
             foreach(var num in _numList)
             {
-                if(minVal == "") lastNum = 0;
+                
                 minVal += num.ToString();
 
-                if(!CheckNumVal((uint)minVal, lastNum)) throw new Exception("Liczba minimalna utworzona z podanego ciągu nie mieści się w typie uint.");
+                if(minVal == "") lastNum = 0;
+                else lastNum = UInt32.Parse(minVal);
+
+                if(!CheckNumVal(UInt32.Parse(minVal), lastNum)) throw new Exception("Liczba minimalna utworzona z podanego ciągu nie mieści się w typie uint.");
+                
             }
-            return (uint)minVal;
+            return UInt32.Parse(minVal);
         }
 
         public uint GetMaxVal()
         {
             string maxVal = "";
             uint lastNum;
+            _numList.Reverse();
 
-            for(int i = _numList.Count; i > 0; i--)
-            {
-                if(maxVal == "") lastNum = 0;
-                maxVal += _numList[i].ToString();
+            foreach(var num in _numList)
+            {                
+                maxVal += num.ToString();
 
-                if(!CheckNumVal((uint)minVal, lastNum)) throw new Exception("Liczba maksymalna utworzona z podanego ciągu nie mieści się w typie uint.");
+                if (maxVal == "") lastNum = 0;
+                else lastNum = UInt32.Parse(maxVal);
+
+                if (!CheckNumVal(UInt32.Parse(maxVal), lastNum)) throw new Exception("Liczba maksymalna utworzona z podanego ciągu nie mieści się w typie uint.");
             }
-            return (uint)maxVal;            
+            return UInt32.Parse(maxVal);            
         }
     }
 }

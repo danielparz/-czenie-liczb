@@ -6,24 +6,32 @@ namespace Łączenie_liczb
     {
         static void Main(string[] args)
         {
-            uint[] numTab = new uint[args[0]];
+            string input = args[0];
+            string[] tab = input.Split(',');
             Console.WriteLine("Podano następujące dane wejściowe:");
-            foreach(var num in numTab)
-                Console.Write($" {num},");
+            foreach(var el in tab)
+                Console.Write($" {el},");
             Console.WriteLine();
 
             try
             {
-                foreach(var num in numTab)                
+                foreach(var num in tab)                
                     for(int i = 0; i < num.Length; i++)                    
-                        if(!num.IsDigit(i)) throw new Exception("Podane dane wejściowe nie zawierają tylko liczb naturalnych");                                    
+                        if(!Char.IsDigit(num[i])) throw new Exception("Podane dane wejściowe nie zawierają tylko liczb naturalnych");                                    
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
             }
 
-            NumberGenerator numGen = new NumberGenerator(numTab);
+            List<uint> numTab = new List<uint>();
+
+            foreach(var val in tab)
+            {
+                numTab.Add(UInt32.Parse(val));
+            }
+
+            NumberGenerator numGen = new NumberGenerator(numTab.ToArray());
 
             try
             {

@@ -16,8 +16,8 @@ namespace Łączenie_liczb
 
             for (int i = 0; i < shorter; i++)
             {
-                if ((int)strx[i].CompareTo((int)stry[i]) != 0)
-                    return (int)strx[i].CompareTo((int)stry[i]);
+                if (strx[i].CompareTo(stry[i]) != 0)
+                    return strx[i].CompareTo(stry[i]);
             }
             return 0;
         }       
